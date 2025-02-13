@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from gestion.forms import DocenteForm
 
 # Create your views here.
 def login_view(request):
@@ -26,3 +27,17 @@ def dashboard_view(request):
 def logout_view(request):
     logout(request)
     return redirect("gestion/login.html")  # Redirige al login después de cerrar sesión
+
+def agregar_docente(request):
+    if request.method == 'POST':
+        form = DocenteForm(request.POST, request.FILES)  # Incluye request.FILES para manejar archivos
+        if form.is_valid():
+            form.save()
+            return redirect('lista_docentes')  # Redirige a la página de lista de docentes
+    else:
+        form = DocenteForm()
+    return render(request, 'agregar_docente.html', {'form': form})
+
+def lista_docentes(request):
+    docentes = docentes.objects.all()  # Obtiene todos los docentes de la base de datos
+    return render(request, 'lista_docentes.html', {'docentes': docentes})

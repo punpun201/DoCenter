@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Agregar Docente</title>
+</head>
+<body>
+    <h1>Agregar Docente</h1>
+    <form method="post" enctype="multipart/form-data">  {% csrf_token %}
+        {{ form.as_p }}  </form>
+        <button type="submit">Guardar</button>
+    </form>
+</body>
+</html>
